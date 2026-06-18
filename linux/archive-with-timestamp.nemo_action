@@ -1,0 +1,7 @@
+[Nemo Action]
+Name=Archive with Timestamp (ZIP)
+Comment=Create a timestamped ZIP archive next to this folder
+Exec=~/.local/bin/archive-with-timestamp.sh %F
+Icon-Name=package-x-generic
+Selection=dirs
+Extensions=dir;

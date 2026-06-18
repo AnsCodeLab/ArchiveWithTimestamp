@@ -1,7 +1,7 @@
-# Timestamp RAR Archiver Tool
+# Archive with Timestamp
 
 ## Overview
-A Windows utility that adds a context menu option to create timestamped ZIP archives of folders directly from Windows Explorer. This tool integrates with WinRAR to provide a convenient way to backup or archive directories with automatic timestamp generation.
+A cross-platform utility that adds a right-click context menu option to create timestamped ZIP archives of folders. Available for **Windows** (via Windows Explorer + WinRAR) and **Linux** (via Nemo file manager + zip).
 
 ## Purpose
 - **Quick Backup:** Create instant backups of important folders with timestamps
@@ -12,33 +12,80 @@ A Windows utility that adds a context menu option to create timestamped ZIP arch
 ## Components
 
 ### Files Included
-1. **`timestamp_rar.bat`** - Main batch script that handles the archiving process
+
+**Windows (`/` root)**
+1. **`timestamp_rar.bat`** - Batch script that handles the archiving process
 2. **`timestamp_rar.reg`** - Registry file that adds the context menu integration
-3. **`README.md`** - This documentation file
+
+**Linux (`linux/` folder)**
+1. **`linux/archive-with-timestamp.sh`** - Shell script that handles the archiving process
+2. **`linux/archive-with-timestamp.nemo_action`** - Nemo action that adds the right-click context menu entry
 
 ### System Requirements
-- **Operating System:** Windows 7 or later
-- **WinRAR:** Must be installed at `C:\Program Files\WinRAR\WinRAR.exe`
-- **Permissions:** Administrator access required for registry modification
+
+**Windows**
+- Windows 7 or later
+- WinRAR installed at `C:\Program Files\WinRAR\WinRAR.exe`
+- Administrator access required for registry modification
+
+**Linux**
+- Nemo file manager
+- `zip` package (`sudo dnf install zip` / `sudo apt install zip`)
 
 ## Installation
 
-### Step 1: Verify Prerequisites
+---
+
+### Windows
+
+#### Step 1: Verify Prerequisites
 1. Ensure WinRAR is installed on your system
 2. Verify WinRAR location: `C:\Program Files\WinRAR\WinRAR.exe`
 3. If WinRAR is installed elsewhere, note the path for customization
 
-### Step 2: Install Context Menu Integration
+#### Step 2: Install Context Menu Integration
 1. **Edit the registry file:** Open `timestamp_rar.reg` in a text editor and replace `D:\\YourPath\\` with the actual path where you placed the batch file
 2. **Right-click** on `timestamp_rar.reg`
 3. Select **"Merge"** or **"Open"**
 4. Click **"Yes"** when prompted to add to registry
 5. Click **"OK"** to confirm successful addition
 
-### Step 3: Verify Installation
+#### Step 3: Verify Installation
 1. Navigate to any folder in Windows Explorer
 2. **Right-click** on the folder
 3. Look for **"Archive with Timestamp (ZIP)"** in the context menu
+
+---
+
+### Linux (Nemo)
+
+#### Step 1: Install the script
+
+```bash
+mkdir -p ~/.local/bin
+cp linux/archive-with-timestamp.sh ~/.local/bin/
+chmod +x ~/.local/bin/archive-with-timestamp.sh
+```
+
+#### Step 2: Install the Nemo action
+
+```bash
+mkdir -p ~/.local/share/nemo/actions
+cp linux/archive-with-timestamp.nemo_action ~/.local/share/nemo/actions/
+```
+
+#### Step 3: Restart Nemo
+
+```bash
+nemo -q && nemo &
+```
+
+#### Step 4: Verify Installation
+1. Navigate to any folder in Nemo
+2. **Right-click** on a folder
+3. Look for **"Archive with Timestamp (ZIP)"** in the context menu
+
+---
 
 ## Usage
 
@@ -230,12 +277,12 @@ echo %date% %time% - Processing folder: %1 >> "D:\YourPath\log.txt"
 ```
 
 ## Version History
-- **v1.0** - Initial release with basic timestamp archiving functionality
-- Current version creates ZIP archives with YYYYMMDD_HHMM timestamp format
+- **v1.1** - Added Linux support (Nemo file manager + zip)
+- **v1.0** - Initial release with Windows support (WinRAR + registry integration)
 
 ## License
 This tool is provided as-is for personal and educational use. Modify and distribute freely while maintaining attribution.
 
 ---
 
-*Last updated: September 12, 2025*
+*Last updated: June 18, 2026*
