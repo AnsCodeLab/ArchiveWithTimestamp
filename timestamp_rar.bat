@@ -17,9 +17,6 @@ set "timestamp=%timestamp: =0%"
 :: Build archive path (same level as folder)
 set "archive=!parent!!name!_!timestamp!.zip"
 
-:: Change to parent directory and archive only the folder name
-pushd "!parent!"
-"C:\Program Files\WinRAR\WinRAR.exe" a -afzip -r -ep1 "!archive!" "!name!"
-popd
+powershell -NoProfile -Command "Add-Type -Assembly System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::CreateFromDirectory('!folder!', '!archive!')"
 
 endlocal
